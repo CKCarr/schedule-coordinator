@@ -19,10 +19,12 @@ git clone https://github.com/ckcarr/schedule-coordinator.git
 cd schedule-coordinator
 npm install
 npm run dev
+```
+
 📦 Build for Production
-bash
-Copy
-Edit
+
+``` bash
+
 npm run build
 📄 Excel Format
 To work properly, your uploaded Excel file must include headers like:

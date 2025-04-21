@@ -6,7 +6,7 @@ export default function GlobalMetricsPanel({ data }) {
         const total = data.length;
         const needs = data.filter((p) => p["Needs Scheduling"] === "Yes").length;
         const tele = data.filter(
-            (p) => (p["CanTeleHealth"] || "").toString().trim().toLowerCase() === "yes"
+            (p) => (p["CanTeleHealth"] || "").toString().trim().toUpperCase() === "TRUE"
         ).length;
 
         const ready = data.filter((p) => p["Contact Priority"] === "Ready to Contact").length;

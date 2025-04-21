@@ -2,6 +2,11 @@ import { useState, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import { markNeedsScheduling } from '../utilities/calculateScheduling';
 
+function excelDateToJSDate(serial) {
+    const excelEpoch = new Date(1899, 11, 30);
+    return new Date(excelEpoch.getTime() + serial * 86400000);
+}
+
 export function useExcelUpload(onDataParsed) {
     const [fileName, setFileName] = useState('');
     const [dragOver, setDragOver] = useState(false);
@@ -27,10 +32,20 @@ export function useExcelUpload(onDataParsed) {
             const formatted = json.map((row) => {
                 const newRow = { ...row };
                 dateFields.forEach((field) => {
-                    if (newRow[field]) {
-                        const parsed = new Date(newRow[field]);
+                    const raw = newRow[field];
+
+                    if (raw) {
+                        let parsed;
+
+                        // Check if it's a number-like string or actual number (Excel serial)
+                        if (!isNaN(raw)) {
+                            parsed = excelDateToJSDate(Number(raw));
+                        } else {
+                            parsed = new Date(raw);
+                        }
+
                         if (!isNaN(parsed)) {
-                            newRow[field] = parsed.toLocaleDateString('en-US');
+                            newRow[field] = parsed.toLocaleDateString("en-US");
                         }
                     }
                 });

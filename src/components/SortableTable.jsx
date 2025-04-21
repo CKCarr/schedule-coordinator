@@ -87,7 +87,7 @@ export default function SortableTable({ data, selectedProvider }) {
                             </td>
 
                             <td className="p-2 text-center">
-                                {(row["CanTeleHealth"] || "").toString().trim().toLowerCase() === "yes" ? "✅" : "—"}
+                                {(row["CanTeleHealth"] || "").toString().trim().toUpperCase() === "TRUE" ? "✅" : "—"}
 
                             </td>
 

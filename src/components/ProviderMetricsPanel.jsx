@@ -11,7 +11,7 @@ export default function ProviderMetricsPanel({ data, selectedProvider, selectedA
             (p) => String(p["Needs Scheduling"]).trim().toLowerCase() === "yes"
         ).length;
 
-        const tele = providerData.filter((p) => p["CanTeleHealth"]?.toLowerCase() === "yes").length;
+        const tele = providerData.filter((p) => p["CanTeleHealth"]?.toUpperCase() === "TRUE").length;
         const ready = providerData.filter((p) => p["Contact Priority"] === "Ready to Contact").length;
         return { total, needs, tele, ready };
     }, [providerData, data]);
